@@ -1,6 +1,8 @@
 echo "Starting Installation"
 sudo cp Webdrivers/chromedriver /usr/bin/
 echo "Webdrivers copied"
+sudo apt-get install xclip
+echo 'Installed xclip for pyperclip module in python'
 python3 -m venv venv
 echo "VENV Created"
 . venv/bin/activate
