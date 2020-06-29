@@ -62,11 +62,10 @@ class Message:
         self.msg=msg
     def send(self):
         print('Sending Message')
-        # searchBox=browser.find_element_by_xpath("//div[@class='_3qx7_']")
-        # searchBox.click()
-        # searchBox.send_keys(self.recipient)
+        searchBox=browser.find_element_by_xpath("//div[@class='_3qx7_']")
+        searchBox.click()
         searchText=browser.find_element_by_xpath("//div[@class='_3FRCZ copyable-text selectable-text']")
-        searchText.click(())
+        # searchText.click()
         searchText.send_keys(self.recipient)
         time.sleep(2)
         recipient=browser.find_element_by_xpath("//span[@title='{}']".format(self.recipient))
