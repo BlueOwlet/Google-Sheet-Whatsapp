@@ -74,8 +74,8 @@ class Message:
         pyperclip.copy(self.msg)
         messageBox.send_keys(Keys.CONTROL+'v')
         time.sleep(1)
-        # sendButton=browser.find_element_by_xpath("//button[@class='_1U1xa']")
-        # sendButton.click()
+        sendButton=browser.find_element_by_xpath("//button[@class='_1U1xa']")
+        sendButton.click()
 
 
 def GetData():
