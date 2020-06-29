@@ -58,16 +58,16 @@ from selenium.webdriver.common.keys import Keys
 class Message:
     def __init__(self, recipient,msg):
         # self.recipient=recipient
-        self.recipient='Jessica IA New'
+        self.recipient='Diane IA'
         self.msg=msg
     def send(self):
         print('Sending Message')
         searchBox=browser.find_element_by_xpath("//div[@class='_3qx7_']")
         searchBox.click()
-        time.sleep(1)
         # searchBox.send_keys(self.recipient)
         searchText=browser.find_element_by_xpath("//div[@class='_3FRCZ copyable-text selectable-text']")
         searchText.send_keys(self.recipient)
+        time.sleep(2)
         recipient=browser.find_element_by_xpath("//span[@title='{}']".format(self.recipient))
         recipient.click()
         messageBox=browser.find_element_by_xpath("//div[@class='_3uMse']")
