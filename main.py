@@ -65,7 +65,7 @@ class Message:
         searchBox=browser.find_element_by_xpath("//div[@class='_3qx7_']")
         searchBox.click()
         time.sleep(1)
-        searchBox.send_keys(self.recipient)
+        # searchBox.send_keys(self.recipient)
         searchText=browser.find_element_by_xpath("//div[@class='_3FRCZ copyable-text selectable-text']")
         searchText.send_keys(self.recipient)
         recipient=browser.find_element_by_xpath("//span[@title='{}']".format(self.recipient))
