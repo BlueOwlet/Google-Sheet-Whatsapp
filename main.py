@@ -62,15 +62,17 @@ class Message:
         self.msg=msg
     def send(self):
         print('Sending Message')
-        browser.find_element_by_xpath("//div[@class='_3qx7_']").click().send_keys(self.recipient)
+        searchBox=browser.find_element_by_xpath("//div[@class='_3qx7_']")
+        searchBox.click()
+        searchBox.send_keys(self.recipient)
         recipient=browser.find_element_by_xpath("//span[@title='{}']".format(self.recipient))
         recipient.click()
         messageBox=browser.find_element_by_xpath("//div[@class='_3uMse']")
         pyperclip.copy(self.msg)
         messageBox.send_keys(Keys.CONTROL+'v')
         time.sleep(1)
-        sendButton=browser.find_element_by_xpath("//button[@class='_1U1xa']")
-        sendButton.click()
+        # sendButton=browser.find_element_by_xpath("//button[@class='_1U1xa']")
+        # sendButton.click()
 
 
 def GetData():
