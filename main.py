@@ -62,6 +62,8 @@ class Message:
         self.msg=msg
     def send(self):
         print('Sending Message')
+        browser.find_element_by_xpath("//span[@class='_3qx7_']")
+        #_2EoyP
         recipient=browser.find_element_by_xpath("//span[@title='{}']".format(self.recipient))
         recipient.click()
         messageBox=browser.find_element_by_xpath("//div[@class='_3uMse']")
@@ -181,7 +183,7 @@ def StartBrowser():
     global options
     global browser
     options = Options()
-    browser = webdriver.Chrome('chromedriver.exe',options=options)
+    browser = webdriver.Chrome('/usr/bin/chromedriver',options=options)
 
 def WhatsappLogin():
     browser.get('https://web.whatsapp.com/')
