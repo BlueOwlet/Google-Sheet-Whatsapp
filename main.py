@@ -62,7 +62,7 @@ class Message:
         self.msg=msg
     def send(self):
         print('Sending Message')
-        browser.find_element_by_xpath("//span[@class='_3qx7_']")
+        browser.find_element_by_xpath("//span[@class='_3xpD_']").send_keys(self.recipient)
         #_2EoyP
         recipient=browser.find_element_by_xpath("//span[@title='{}']".format(self.recipient))
         recipient.click()
