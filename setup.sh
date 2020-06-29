@@ -11,7 +11,7 @@ pip install -r req.txt
 echo 'Requirements installed'
 crontab -l > tmpfile
 dir=`pwd`
-echo '* * * * * ${dir}/run.sh'>>tmpfile
+echo "* * * * * ${dir}/run.sh">>tmpfile
 crontab tmpfile
 rm tmpfile
 echo 'Cronjob was created successfully'
