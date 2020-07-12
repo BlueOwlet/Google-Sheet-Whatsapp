@@ -58,10 +58,10 @@ from selenium.webdriver.common.keys import Keys
 class Message:
     def __init__(self, recipient,msg):
         # self.recipient=recipient
-        self.recipient='Diane IA'
+        self.recipient=recipient
         self.msg=msg
     def send(self):
-        print('Sending Message')
+        print('Sending Message to: {}'.format(self.recipient))
         searchBox=browser.find_element_by_xpath("//div[@class='_3qx7_']")
         searchBox.click()
         searchText=browser.find_element_by_xpath("//div[@class='_3FRCZ copyable-text selectable-text']")
@@ -70,6 +70,7 @@ class Message:
         time.sleep(2)
         recipient=browser.find_element_by_xpath("//span[@title='{}']".format(self.recipient))
         recipient.click()
+        time.sleep(1)
         messageBox=browser.find_element_by_xpath("//div[@class='_3uMse']")
         pyperclip.copy(self.msg)
         messageBox.send_keys(Keys.CONTROL+'v')
@@ -143,17 +144,19 @@ def CreateClasses():
 def CreateMessages():
 
     for teacher in uniqueTeachers:
-        print(teacher)
-        msg='''Good morning {},
+        if teacher in whitelist:
+
+            print('Creating message for: {}'.format(teacher))
+            msg='''Good morning {},
 This is the automated summary of your classes in order to follow up new material for your groups or any situation.
 
 SUMMARY:
 
 '''.format(teacher)
 
-        teacherGroups = [group for group in groups if group.teacher==teacher]
-        for group in teacherGroups:
-            msg+='''
+            teacherGroups = [group for group in groups if group.teacher==teacher]
+            for group in teacherGroups:
+                msg+='''
 
 {}
 Students: {}
@@ -162,18 +165,23 @@ Schedule: {}
 
 '''.format(group.group,group.students,group.level,group.schedule)
 
-        msg+='''Please let me know if you need new material or if any of the schedules are outdated,
+            msg+='''Please let me know if you need new material or if any of the schedules are outdated,
 
 Cheers'''
 
-        print(msg)
-        message=Message(group.teacher,msg)
-        time.sleep(1)
-        try:
-            message.send()
-        except Exception as e:
-            print(e)
-            print('Failed with teacher: '.format(group.teacher))
+        # print(msg)
+            message=Message(group.teacher,msg)
+            time.sleep(1)
+            if message.recipient in whitelist:
+                print('{} - WHITELISTED'.format(message.recipient))
+                try:
+                    message.send()
+                except Exception as e:
+                    print(e)
+                    print('Failed with teacher: {}'.format(message.recipient))
+            else:
+                print('{} - BLACKLISTED'.format(message.recipient))
+
 
 
 
@@ -187,7 +195,7 @@ def StartBrowser():
     global options
     global browser
     options = Options()
-    browser = webdriver.Chrome('/usr/bin/chromedriver',options=options)
+    browser = webdriver.Chrome(driver,options=options)
 
 def WhatsappLogin():
     browser.get('https://web.whatsapp.com/')
@@ -197,6 +205,21 @@ def WhatsappLogin():
 
 
 def main():
+    import platform
+    global driver
+    if platform.system() == 'Windows':
+        driver='chromedriver.exe'
+    else:
+        driver='/usr/bin/chromedriver'
+    print(platform.system())
+    whitelistConfig=True
+    if whitelistConfig==True:
+        global whitelist
+        import json
+        with open('TeacherWhitelist.json') as json_file:
+            whitelist=json.load(json_file)
+            whitelist=whitelist["whitelist"]
+            print('This is the whitelist: {}'.format(whitelist))
     print('Dowloading teacher list')
     print('Logging in and Getting data from Google')
     login()
