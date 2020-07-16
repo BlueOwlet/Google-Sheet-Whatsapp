@@ -84,7 +84,7 @@ class Message:
         messageBox.send_keys(Keys.CONTROL+'v')
         time.sleep(1)
         sendButton=browser.find_element_by_xpath("//button[@class='_1U1xa']")
-        # sendButton.click()
+        sendButton.click()
 
 
 def GetData(spreadsheet_id):
@@ -160,17 +160,18 @@ def CreateMessages():
         msg='''Good morning {teacher}!
 This is the automated weekly summary of your classes in order to follow up with new material for your groups please. Please let me know if you need the next lesson plan for any of the groups below.
 
-SUMMARY:'''.format(teacher=teacher)
+SUMMARY:
+'''.format(teacher=teacher)
 
         teacherGroups = [group for group in groups if group.teacher==teacher]
         # input(teacherGroups)
         for group in teacherGroups:
-            msg+='''
-{}
+            msg+='''{}
 Students: {}
 Level: {}
 Schedule: {}
 Last Feedback: {}
+
 '''.format(group.group,group.students,group.level,group.schedule,group.feedback)
 
         msg+="Please let me know if any of the schedules are outdated,\n All the best,\nInterAct"
@@ -260,6 +261,7 @@ def main():
         driver='chromedriver.exe'
     else:
         driver='/usr/bin/chromedriver'
+        input(driver)
     print('OS check: ',osName)
 
     spreadsheet_id='1gEsoxidCDUByobm0RU7nThlY_-EODVOTc2A6vT-8Sz8'
