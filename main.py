@@ -205,7 +205,7 @@ def StartBrowser():
     global browser
     options = Options()
     # browser = webdriver.Chrome('/usr/bin/chromedriver',options=options)
-    browser = webdriver.Chrome('chromedriver.exe',options=options)
+    browser = webdriver.Chrome(driver,options=options)
 
 def WhatsappLogin():
     browser.get('https://web.whatsapp.com/')
@@ -257,6 +257,7 @@ def main():
     login()
     print('Login Successful')
     osName=CheckOS()
+    global driver
     if osName == 'Windows':
         driver='chromedriver.exe'
     else:
